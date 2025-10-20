@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <style>
+      body {
+        font-family: 'Google Sans', Arial, sans-serif;
+        padding: 16px;
+      }
+      label {
+        display: block;
+        margin-top: 12px;
+        font-weight: 500;
+      }
+      input[type="number"] {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 6px 8px;
+        margin-top: 4px;
+      }
+      .actions {
+        margin-top: 24px;
+      }
+      button {
+        background-color: #1a73e8;
+        border: none;
+        color: #fff;
+        padding: 8px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      button:disabled {
+        background-color: #9bbcf9;
+        cursor: default;
+      }
+      .status {
+        margin-top: 16px;
+        font-size: 13px;
+        color: #3c4043;
+      }
+    </style>
+  </head>
+  <body>
+    <form id="settings-form" onsubmit="event.preventDefault(); saveSettings();">
+      <label for="duration">Timer duration (minutes)</label>
+      <input type="number" id="duration" name="duration" min="0" value="<?= settings.durationMinutes ?>" required>
+
+      <label class="checkbox">
+        <input type="checkbox" id="forceRetake" name="forceRetake" <?= settings.forceRetakeEnabled ? 'checked' : '' ?>>
+        Enforce retake if score is below threshold
+      </label>
+
+      <label for="threshold">Passing score threshold (%)</label>
+      <input type="number" id="threshold" name="threshold" min="0" max="100" value="<?= settings.scoreThreshold ?>" required>
+
+      <div class="actions">
+        <button type="submit" id="save">Save settings</button>
+      </div>
+    </form>
+
+    <div class="status" id="status"></div>
+
+    <? if (settings.sessionEndsAt) { ?>
+    <div class="status">
+      Active timer ends at <strong><?= new Date(settings.sessionEndsAt).toLocaleString() ?></strong>
+    </div>
+    <? } ?>
+
+    <script>
+      function saveSettings() {
+        const status = document.getElementById('status');
+        status.textContent = 'Saving…';
+        document.getElementById('save').disabled = true;
+        const payload = {
+          durationMinutes: document.getElementById('duration').value,
+          forceRetakeEnabled: document.getElementById('forceRetake').checked,
+          scoreThreshold: document.getElementById('threshold').value
+        };
+        google.script.run.withSuccessHandler(function(settings) {
+          status.textContent = 'Settings saved.';
+          document.getElementById('save').disabled = false;
+        }).withFailureHandler(function(error) {
+          status.textContent = 'Unable to save settings: ' + error.message;
+          document.getElementById('save').disabled = false;
+        }).updateSettings(payload);
+      }
+    </script>
+  </body>
+</html>
