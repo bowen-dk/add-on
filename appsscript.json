@@ -3,11 +3,6 @@
   "dependencies": {},
   "exceptionLogging": "STACKDRIVER",
   "runtimeVersion": "V8",
-  "oauthScopes": [
-    "https://www.googleapis.com/auth/forms",
-    "https://www.googleapis.com/auth/forms.currentonly",
-    "https://www.googleapis.com/auth/script.send_mail"
-  ],
   "addOns": {
     "common": {
       "name": "Quiz Control",
@@ -16,13 +11,14 @@
         "https://docs.google.com/forms"
       ]
     },
-    "forms": {
+    "form": {
       "homepageTrigger": {
         "runFunction": "showSettingsSidebar",
         "enabled": true
       },
-      "onInstallFunction": "onInstall",
-      "onOpenFunction": "onOpen"
+      "onFileScopeGrantedTrigger": {
+        "runFunction": "onOpen"
+      }
     }
   }
 }

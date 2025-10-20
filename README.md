@@ -25,7 +25,3 @@ This project provides the source for a Google Apps Script add-on that augments G
 5. Start a timed session from the add-on menu. The add-on stores settings per form, so you can reuse the same deployment across multiple Forms files.
 
 > **Note:** Forced retake requires the quiz to collect respondent email addresses and use auto-graded questions so that a total score is available immediately on submission.
-
-## Troubleshooting
-
-- **Manifest error referencing `addOns.form`** – Ensure that the manifest file uses the plural `forms` key inside `addOns`. The correct section should begin with `"addOns": { "forms": { ... } }` and include the Forms add-on OAuth scopes. Updating the manifest in the Apps Script editor and re-running the deployment resolves the validation error.
