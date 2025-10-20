@@ -11,7 +11,7 @@
         "https://docs.google.com/forms"
       ]
     },
-    "forms": {
+    "form": {
       "homepageTrigger": {
         "runFunction": "showSettingsSidebar",
         "enabled": true
