@@ -14,7 +14,7 @@ This project provides the source for a Google Apps Script add-on that augments G
 | ---- | ----------- |
 | `Code.gs` | Core Apps Script logic for the add-on, including menu creation, timer automation, and quiz retake enforcement. |
 | `TimerConfig.html` | Sidebar user interface that lets editors configure timer and retake preferences. |
-| `appsscript.json` | Add-on manifest declaring triggers and metadata for a Forms add-on. |
+| `appsscript.json` | Add-on manifest declaring triggers, OAuth scopes, and metadata for the Forms add-on. |
 
 ## Deployment
 
